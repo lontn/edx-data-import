@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- $Id$ -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+  xmlns:context="http://www.springframework.org/schema/context"
+  xmlns:lang="http://www.springframework.org/schema/lang"
+  xmlns:util="http://www.springframework.org/schema/util"
+  xmlns:task="http://www.springframework.org/schema/task"
+  xmlns:p="http://www.springframework.org/schema/p"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="
+    http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+    http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd
+    http://www.springframework.org/schema/lang http://www.springframework.org/schema/lang/spring-lang-4.2.xsd
+    http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.2.xsd
+    http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-4.2.xsd">
+
+  <bean id="taskErrorHandler" class="com.fcu.gtml.edx.task.TaskErrorHandler" />
+
+  <!-- ThreadPoolTaskScheduler instance with the specified thread pool size. -->
+  <bean id="taskScheduler" class="org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler"
+    p:poolSize="20" p:errorHandler-ref="taskErrorHandler" />
+
+  <task:scheduled-tasks scheduler="taskScheduler">
+    <task:scheduled ref="courseTriggerTask"
+      method="execute" cron="0 30 17 * * ?"/>
+<!--     <task:scheduled ref="hourlySendToCrawlerWorker" -->
+<!--       method="execute" cron="0 30 8 * * ?"/> -->
+<!--     <task:scheduled ref="fixLastActiveTimeToCrawlerTaskPlan" -->
+<!--       method="execute" cron="0 30 7 * * ?"/> -->
+  </task:scheduled-tasks>
+
+  <!-- Task Beans -->
+  <bean id="courseTriggerTask"
+        class="com.fcu.gtml.edx.process.CourseInfomationTask"
+        p:name="Every 5 Second Trigger Task"
+        p:countryCode="USA"
+        p:groupIds="24,29"
+        p:categoryIds="10"
+        p:runRateQtys="Tail"
+        p:websites="www.amazon.com" />
+<!--   <bean id="hourlySendToCrawlerWorker" -->
+<!--         class="com.newegg.autopricing.ctp.task.HourlySendToCrawlerWorker" -->
+<!--         p:name="Every 2 Minutes Trigger Task" -->
+<!--         p:countryCode="USA" -->
+<!--         p:groupIds="60" -->
+<!--         p:categoryIds="" -->
+<!--         p:runRateQtys="Head,Body" -->
+<!--         p:websites="www.amazon.com" /> -->
+<!--   <bean id="fixLastActiveTimeToCrawlerTaskPlan" -->
+<!--         class="com.newegg.autopricing.ctp.task.FixLastActiveTimeToCrawlerTaskPlan" -->
+<!--         p:name="Fix LastActiveTime To CrawlerTaskPlan Trigger Task" -->
+<!--         p:countryCode="USA" -->
+<!--         p:websites="www.amazon.com" -->
+<!--         p:day="3" -->
+<!--         p:lastActiveTime="true" /> -->
+
+  <util:map id="tasksMap">
+    <entry key="courseTriggerTask"                             value-ref="courseTriggerTask" />
+<!--     <entry key="hourlySendToCrawlerWorker"                   value-ref="hourlySendToCrawlerWorker" /> -->
+<!--     <entry key="fixLastActiveTimeToCrawlerTaskPlan"          value-ref="fixLastActiveTimeToCrawlerTaskPlan" /> -->
+  </util:map>
+</beans>

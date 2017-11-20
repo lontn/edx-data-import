@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.fcu.gtml.edx.persistence.EdXInformationMapper">
+
+<resultMap id="rm_MappingItem" type="MappingItem">
+  <result property="mappingId"          column="mappingID"          jdbcType="INTEGER"/>
+  <result property="websiteId"          column="websiteId"          jdbcType="INTEGER"/>
+  <result property="website"            column="Website"            jdbcType="NVARCHAR"/>
+  <result property="url"                column="URL"                jdbcType="NVARCHAR"/>
+  <result property="itemNo"             column="ItemNo"             jdbcType="CHAR"/>
+  <result property="sku"                column="SKU"                jdbcType="CHAR"/>
+  <result property="matchUpdateTime"    column="MatchUpdateTime"    jdbcType="TIMESTAMP"/>
+  <result property="country"            column="Country"            jdbcType="INTEGER"/>
+  <result property="neActive"           column="NeActive"           jdbcType="CHAR" javaType="_boolean"/>
+  <result property="neActiveUpdateTime" column="NeActiveUpdateTime" jdbcType="TIMESTAMP"/>
+  <result property="countryCode"        column="CountryCode"        jdbcType="CHAR"/>
+  <result property="match"              column="Match"              jdbcType="INTEGER"/>
+  <result property="manualCheck"        column="ManualCheck"        jdbcType="INTEGER"/>
+  <result property="cpActive"           column="CpActive"           jdbcType="INTEGER"/>
+  <result property="cpLastActiveTime"   column="CpLastActiveTime"   jdbcType="TIMESTAMP"/>
+</resultMap>
+
+<select id="listVideoCodes" resultType="string" parameterType="map">
+SELECT distinct JSON_UNQUOTE(JSON_EXTRACT(JSON_UNQUOTE(Event), "$.code")) as videoCode  
+FROM EdXInfo.TrackingLogVaild where courseId = #{courseId} and EventType = #{eventType};
+</select>
+
+</mapper>

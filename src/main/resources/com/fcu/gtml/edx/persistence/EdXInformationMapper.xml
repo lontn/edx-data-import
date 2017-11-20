@@ -4,27 +4,39 @@
 
 <mapper namespace="com.fcu.gtml.edx.persistence.EdXInformationMapper">
 
-<resultMap id="rm_MappingItem" type="MappingItem">
-  <result property="mappingId"          column="mappingID"          jdbcType="INTEGER"/>
-  <result property="websiteId"          column="websiteId"          jdbcType="INTEGER"/>
-  <result property="website"            column="Website"            jdbcType="NVARCHAR"/>
-  <result property="url"                column="URL"                jdbcType="NVARCHAR"/>
-  <result property="itemNo"             column="ItemNo"             jdbcType="CHAR"/>
-  <result property="sku"                column="SKU"                jdbcType="CHAR"/>
-  <result property="matchUpdateTime"    column="MatchUpdateTime"    jdbcType="TIMESTAMP"/>
-  <result property="country"            column="Country"            jdbcType="INTEGER"/>
-  <result property="neActive"           column="NeActive"           jdbcType="CHAR" javaType="_boolean"/>
-  <result property="neActiveUpdateTime" column="NeActiveUpdateTime" jdbcType="TIMESTAMP"/>
-  <result property="countryCode"        column="CountryCode"        jdbcType="CHAR"/>
-  <result property="match"              column="Match"              jdbcType="INTEGER"/>
-  <result property="manualCheck"        column="ManualCheck"        jdbcType="INTEGER"/>
-  <result property="cpActive"           column="CpActive"           jdbcType="INTEGER"/>
-  <result property="cpLastActiveTime"   column="CpLastActiveTime"   jdbcType="TIMESTAMP"/>
+<!-- <resultMap id="rm_MappingItem" type="MappingItem"> -->
+<!--   <result property="mappingId"          column="mappingID"          jdbcType="INTEGER"/> -->
+<!--   <result property="websiteId"          column="websiteId"          jdbcType="INTEGER"/> -->
+<!--   <result property="website"            column="Website"            jdbcType="NVARCHAR"/> -->
+<!--   <result property="url"                column="URL"                jdbcType="NVARCHAR"/> -->
+<!--   <result property="itemNo"             column="ItemNo"             jdbcType="CHAR"/> -->
+<!--   <result property="sku"                column="SKU"                jdbcType="CHAR"/> -->
+<!--   <result property="matchUpdateTime"    column="MatchUpdateTime"    jdbcType="TIMESTAMP"/> -->
+<!--   <result property="country"            column="Country"            jdbcType="INTEGER"/> -->
+<!--   <result property="neActive"           column="NeActive"           jdbcType="CHAR" javaType="_boolean"/> -->
+<!--   <result property="neActiveUpdateTime" column="NeActiveUpdateTime" jdbcType="TIMESTAMP"/> -->
+<!--   <result property="countryCode"        column="CountryCode"        jdbcType="CHAR"/> -->
+<!--   <result property="match"              column="Match"              jdbcType="INTEGER"/> -->
+<!--   <result property="manualCheck"        column="ManualCheck"        jdbcType="INTEGER"/> -->
+<!--   <result property="cpActive"           column="CpActive"           jdbcType="INTEGER"/> -->
+<!--   <result property="cpLastActiveTime"   column="CpLastActiveTime"   jdbcType="TIMESTAMP"/> -->
+<!-- </resultMap> -->
+
+<resultMap id="rm_CourseOverview" type="CourseOverview">
+  <result property="id"              column="id"                    jdbcType="VARCHAR"/>
+  <result property="displayName"     column="display_name"          jdbcType="VARCHAR"/>
+  <result property="startDate"       column="start"                 jdbcType="TIMESTAMP"/>
+  <result property="endDate"         column="end"                   jdbcType="TIMESTAMP"/>
+  <result property="org"             column="org"                   jdbcType="VARCHAR"/>
 </resultMap>
 
 <select id="listVideoCodes" resultType="string" parameterType="map">
 SELECT distinct JSON_UNQUOTE(JSON_EXTRACT(JSON_UNQUOTE(Event), "$.code")) as videoCode  
 FROM EdXInfo.TrackingLogVaild where courseId = #{courseId} and EventType = #{eventType};
+</select>
+
+<select id="listCourseOverview" resultMap="rm_CourseOverview" parameterType="map">
+SELECT id, display_name, start, end, org FROM edxapp.course_overviews_courseoverview;
 </select>
 
 </mapper>

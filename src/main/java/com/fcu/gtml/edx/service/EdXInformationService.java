@@ -6,7 +6,17 @@ import com.fcu.gtml.edx.domain.CourseOverview;
 
 public interface EdXInformationService {
 
+    /**
+     * 取得課程的每個Youtube Code
+     * @param courseId
+     * @param eventType
+     * @return
+     */
     public List<String> listVideoCodes(String courseId, String eventType);
 
+    /**
+     * 取得課程資訊
+     * @return
+     */
     public List<CourseOverview> listCourseOverview();
 }

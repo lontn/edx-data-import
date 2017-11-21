@@ -32,12 +32,8 @@
   <!-- Task Beans -->
   <bean id="courseTriggerTask"
         class="com.fcu.gtml.edx.process.CourseInfomationTask"
-        p:name="Every 5 Second Trigger Task"
-        p:countryCode="USA"
-        p:groupIds="24,29"
-        p:categoryIds="10"
-        p:runRateQtys="Tail"
-        p:websites="www.amazon.com" />
+        p:name="Course Information Trigger Task"
+        p:eventType="load_video" />
 <!--   <bean id="hourlySendToCrawlerWorker" -->
 <!--         class="com.newegg.autopricing.ctp.task.HourlySendToCrawlerWorker" -->
 <!--         p:name="Every 2 Minutes Trigger Task" -->

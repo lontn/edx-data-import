@@ -36,4 +36,5 @@ public class EdXInformationMapperTest extends SupportSpringTest {
             L.info("courseOverview:{}", courseOverview);
         }
     }
+
 }

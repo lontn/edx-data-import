@@ -8,7 +8,7 @@ public class CourseOverview extends Entity {
     private String id;
     private String displayName;
     private Date startDate;
-    private Date endDate;
+    private String endDate;
     private String org;
 
     public String getId() {
@@ -29,10 +29,10 @@ public class CourseOverview extends Entity {
     public void setStartDate(Date startDate) {
         this.startDate = startDate;
     }
-    public Date getEndDate() {
+    public String getEndDate() {
         return endDate;
     }
-    public void setEndDate(Date endDate) {
+    public void setEndDate(String endDate) {
         this.endDate = endDate;
     }
     public String getOrg() {

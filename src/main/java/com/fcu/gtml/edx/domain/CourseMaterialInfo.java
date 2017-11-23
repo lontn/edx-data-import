@@ -26,6 +26,32 @@ public class CourseMaterialInfo extends Entity {
     private int dislikeCount;
     private int commentCount;
 
+    public CourseMaterialInfo() {
+    }
+
+    public CourseMaterialInfo(CourseOverview course, YoutuBe youtuBe) {
+        this.displayName = course.getDisplayName();
+        this.videoCode = youtuBe.getViedoCode();
+        this.liveBroadcastContent = youtuBe.getLiveBroadcastContent();
+        this.channelTitle = youtuBe.getChannelTitle();
+        this.videoTitle = youtuBe.getVideoTitle();
+        this.videoDescript = youtuBe.getVidoeDescription();
+        this.videoTime = youtuBe.getVideoTime();
+        this.startDate = course.getStartDate();
+        this.endDate = course.getEndDate();
+        this.courseId = course.getId();
+        this.org = course.getOrg();
+        this.dimension = youtuBe.getDimension();
+        this.definition = youtuBe.getDefinition();
+        this.caption = youtuBe.isCaption();
+        this.licensedContent = youtuBe.isLicensedContent();
+        this.projection = youtuBe.getProjection();
+        this.viewCount = youtuBe.getViewCount();
+        this.likeCount = youtuBe.getLikeCount();
+        this.dislikeCount = youtuBe.getDislikeCount();
+        this.commentCount = youtuBe.getCommentCount();
+    }
+
     public String getDisplayName() {
         return displayName;
     }

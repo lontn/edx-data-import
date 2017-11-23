@@ -8,6 +8,7 @@ import javax.annotation.Resource;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import com.fcu.gtml.edx.domain.CourseMaterialInfo;
 import com.fcu.gtml.edx.domain.CourseOverview;
 import com.fcu.gtml.edx.domain.YoutuBe;
 import com.fcu.gtml.edx.service.EdXInformationService;
@@ -35,13 +36,15 @@ public class CourseInfomationTask extends AbstractTask {
             String courseId = course.getId();
             //針對課程資訊撈出Video Code
             List<String> listVideoCodes = edxService.listVideoCodes(courseId, eventType);
-            // TODO 呼叫Youtube API
+            // 呼叫Youtube API
+            processYoutubeData(listVideoCodes, course);
         }
     }
 
     private void processYoutubeData(List<String> listVideoCodes, CourseOverview course) {
         for (String code : listVideoCodes) {
-            YoutuBe youbube = youtubeAPIService.getYoutubeAPI(code);
+            YoutuBe youbuBe = youtubeAPIService.getYoutubeAPI(code);
+            CourseMaterialInfo courseMaterial = new CourseMaterialInfo(course, youbuBe);
         }
     }
 }

@@ -7,7 +7,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.fcu.gtml.edx.utils.JsonParserConfig;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration({ "classpath:spring-datasource.xml", "classpath:com/fcu/gtml/edx/spring-config.xml" })
+@ContextConfiguration({ "classpath:spring-datasource.xml", "classpath:com/fcu/gtml/edx/spring-config.xml", "classpath:spring-task.xml" })
 abstract public class SupportSpringTest {
     static {
         JsonParserConfig.config();

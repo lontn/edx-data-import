@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
+import com.fcu.gtml.edx.domain.CourseMaterialInfo;
 import com.fcu.gtml.edx.domain.CourseOverview;
 
 public interface EdXInformationMapper {
@@ -23,4 +24,8 @@ public interface EdXInformationMapper {
      * @return
      */
     public List<CourseOverview> listCourseOverview();
+
+    public int countCourseMateria(@Param("videoCode") String videoCode);
+
+    public void insertCourseMaterialInfo(CourseMaterialInfo courseMaterialInfo);
 }

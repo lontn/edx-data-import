@@ -40,7 +40,7 @@ public class YoutubeAPIServiceImpl implements YoutubeAPIService {
                     JsonNode nodeItems = nodes.get("items");
                     for (JsonNode itemNode : nodeItems) {
                         String code = itemNode.get("id").asText();
-                        youtuBe.setViedoCode(code);
+                        youtuBe.setViedoCode(code == null || code.equals("") ? videoCode : code);
                         String title = itemNode.get("snippet").get("title").asText();
                         youtuBe.setVideoTitle(title);
                         String description = itemNode.get("snippet").get("description").asText();
@@ -50,6 +50,7 @@ public class YoutubeAPIServiceImpl implements YoutubeAPIService {
                         String liveBroadcastContent = itemNode.get("snippet").get("liveBroadcastContent").asText();
                         youtuBe.setLiveBroadcastContent(liveBroadcastContent);
                         String duration = itemNode.get("contentDetails").get("duration").asText();
+                        youtuBe.setDuration(duration);
                         youtuBe.setVideoTime(calculateVedioTime(duration));
                         String dimension = itemNode.get("contentDetails").get("dimension").asText();
                         youtuBe.setDimension(dimension);
@@ -71,7 +72,8 @@ public class YoutubeAPIServiceImpl implements YoutubeAPIService {
                         youtuBe.setCommentCount(commentCount);
                     }
                     return youtuBe;
-                } catch (IOException e) {
+                } catch (Exception e) {
+                    L.error("videoCode:{}", videoCode);
                     L.error("getYoutubeAPI IOException:{}", e);
                 }
             }

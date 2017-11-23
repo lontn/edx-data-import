@@ -6,6 +6,7 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
+import com.fcu.gtml.edx.domain.CourseMaterialInfo;
 import com.fcu.gtml.edx.domain.CourseOverview;
 import com.fcu.gtml.edx.persistence.EdXInformationMapper;
 
@@ -24,6 +25,16 @@ public class EdXInformationServiceImpl implements EdXInformationService {
     public List<CourseOverview> listCourseOverview() {
         List<CourseOverview> listCourses = edxMapper.listCourseOverview();
         return listCourses;
+    }
+
+    @Override
+    public int countCourseMateria(String videoCode) {
+        return edxMapper.countCourseMateria(videoCode);
+    }
+
+    @Override
+    public void insertCourseMaterialInfo(CourseMaterialInfo courseMaterialInfo) {
+        edxMapper.insertCourseMaterialInfo(courseMaterialInfo);
     }
 
 }

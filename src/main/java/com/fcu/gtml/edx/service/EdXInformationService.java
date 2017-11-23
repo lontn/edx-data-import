@@ -2,6 +2,7 @@ package com.fcu.gtml.edx.service;
 
 import java.util.List;
 
+import com.fcu.gtml.edx.domain.CourseMaterialInfo;
 import com.fcu.gtml.edx.domain.CourseOverview;
 
 public interface EdXInformationService {
@@ -19,4 +20,8 @@ public interface EdXInformationService {
      * @return
      */
     public List<CourseOverview> listCourseOverview();
+
+    public int countCourseMateria(String videoCode);
+
+    public void insertCourseMaterialInfo(CourseMaterialInfo courseMaterialInfo);
 }

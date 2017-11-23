@@ -23,20 +23,92 @@
 <!-- </resultMap> -->
 
 <resultMap id="rm_CourseOverview" type="CourseOverview">
-  <result property="id"              column="courseId"                    jdbcType="VARCHAR"/>
+  <result property="id"              column="courseId"              jdbcType="VARCHAR"/>
   <result property="displayName"     column="display_name"          jdbcType="VARCHAR"/>
   <result property="startDate"       column="start"                 jdbcType="TIMESTAMP"/>
   <result property="endDate"         column="end"                   jdbcType="TIMESTAMP"/>
   <result property="org"             column="org"                   jdbcType="VARCHAR"/>
 </resultMap>
 
+<resultMap id="rm_CourseMaterialInfo" type="CourseMaterialInfo">
+  <result property="displayName"                         column="DisplayName"                   jdbcType="VARCHAR"/>
+  <result property="liveBroadcastContent"                column="LiveBroadcastContent"          jdbcType="VARCHAR"/>
+  <result property="channelTitle"                        column="ChannelTitle"                  jdbcType="VARCHAR"/>
+  <result property="startDate"                           column="StartDate"                     jdbcType="TIMESTAMP"/>
+  <result property="endDate"                             column="EndDate"                     jdbcType="TIMESTAMP"/>
+</resultMap>
+
 <select id="listVideoCodes" resultType="string" parameterType="map">
+<![CDATA[
+SELECT videoCode FROM( 
 SELECT distinct JSON_UNQUOTE(JSON_EXTRACT(JSON_UNQUOTE(Event), "$.code")) as videoCode  
-FROM EdXInfo.TrackingLogVaild where courseId = #{courseId} and EventType = #{eventType};
+FROM EdXInfo.TrackingLogVaild where courseId = #{courseId} and EventType = #{eventType}
+ ) AS T
+WHERE T.videoCode <> 'html5' and  T.videoCode <> '';
+]]>
 </select>
 
 <select id="listCourseOverview" resultMap="rm_CourseOverview" parameterType="map">
 SELECT id as courseId, display_name, start, end, org FROM edxapp.course_overviews_courseoverview;
 </select>
 
+<select id="countCourseMateria" resultType="int" parameterType="map">
+SELECT count(1) FROM EdXInfo.CourseMaterialInfo where VideoCode = #{videoCode}
+</select>
+
+<insert id="insertCourseMaterialInfo" parameterType="CourseMaterialInfo" useGeneratedKeys="true" keyProperty="id">
+INSERT INTO EdXInfo.CourseMaterialInfo
+(
+  DisplayName,
+  VideoCode,
+  LiveBroadcastContent,
+  ChannelTitle,
+  VideoTitle,
+  VideoDescript,
+  VideoTime,
+  StartDate,
+  EndDate,
+  CourseId,
+  Org,
+  Dimension,
+  Definition,
+  Caption,
+  LicensedContent,
+  Projection,
+  ViewCount,
+  LikeCount,
+  DislikeCount,
+  CommentCount,
+  InDate,
+  InUser,
+  LasterEditDate,
+  LasterEditUser)
+VALUES
+(
+  #{displayName},
+  #{videoCode},
+  #{liveBroadcastContent},
+  #{channelTitle},
+  #{videoTitle},
+  #{videoDescript},
+  #{videoTime},
+  #{startDate},
+  #{endDate},
+  #{courseId},
+  #{org},
+  #{dimension},
+  #{definition},
+  #{caption},
+  #{licensedContent},
+  #{projection},
+  #{viewCount},
+  #{likeCount},
+  #{dislikeCount},
+  #{commentCount},
+  now(),
+  'Gtml',
+  now(),
+  'Gtml');
+
+</insert>
 </mapper>

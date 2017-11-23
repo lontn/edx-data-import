@@ -30,15 +30,23 @@ public class CourseInfomationTask extends AbstractTask {
 
     @Override
     public void runTask() {
+        L.info("CourseInfomationTask Start........");
         // 撈出課程資訊
         List<CourseOverview> listCourses = edxService.listCourseOverview();
         for (CourseOverview course : listCourses) {
             String courseId = course.getId();
-            //針對課程資訊撈出Video Code
-            List<String> listVideoCodes = edxService.listVideoCodes(courseId, eventType);
-            // 呼叫Youtube API
-            processYoutubeData(listVideoCodes, course);
+            L.info("CourseOverview:{}", courseId);
+            try {
+                //針對課程資訊撈出Video Code
+                List<String> listVideoCodes = edxService.listVideoCodes(courseId, eventType);
+                // 呼叫Youtube API
+                processYoutubeData(listVideoCodes, course);
+            } catch (Exception e) {
+                L.error("CourseOverview:{}", course);
+                L.error("runTask Exception:{}", e);
+            }
         }
+        L.info("CourseInfomationTask End........");
     }
 
     private void processYoutubeData(List<String> listVideoCodes, CourseOverview course) {
@@ -46,6 +54,19 @@ public class CourseInfomationTask extends AbstractTask {
             YoutuBe youbuBe = youtubeAPIService.getYoutubeAPI(code);
             CourseMaterialInfo courseMaterial = new CourseMaterialInfo(course, youbuBe);
             // TODO INSERT ?
+            int count = edxService.countCourseMateria(code);
+            try {
+                if (count == 0) {
+                    // insert
+                    edxService.insertCourseMaterialInfo(courseMaterial);
+                } else {
+                    // update
+                }
+            } catch (Exception e) {
+                L.error("videoCode:{}", code);
+                L.error("courseMaterial:{}", courseMaterial);
+                L.error("processYoutubeData:{}", e);
+            }
         }
     }
 }

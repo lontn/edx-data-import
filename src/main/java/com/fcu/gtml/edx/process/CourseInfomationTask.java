@@ -45,6 +45,7 @@ public class CourseInfomationTask extends AbstractTask {
         for (String code : listVideoCodes) {
             YoutuBe youbuBe = youtubeAPIService.getYoutubeAPI(code);
             CourseMaterialInfo courseMaterial = new CourseMaterialInfo(course, youbuBe);
+            // TODO INSERT ?
         }
     }
 }

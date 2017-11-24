@@ -19,4 +19,12 @@ public class YoutubeAPIServiceTest extends SupportSpringTest {
         YoutuBe youtube = service.getYoutubeAPI("9H2KWHmbGA0");
         L.info("youtube:{}", youtube);
     }
+
+    @Test
+    public void test11() {
+        YoutuBe youtube = new YoutuBe();
+        youtube.setViedoCode("9H2KWHmbGAdd0");
+        L.info("youtube:{}", youtube);
+        L.info("youtube:{}", youtube.getDimension());
+    }
 }

@@ -32,6 +32,7 @@ public class YoutubeAPIServiceImpl implements YoutubeAPIService {
         String apiUrl = Configuration.YoutubeAPI.getURL() + "id=" + videoCode + "&key=" + Configuration.YoutubeAPI.getPrivateKey() + "&part=" + Configuration.YoutubeAPI.getPart();
         boolean isSuccess = true;
         YoutuBe youtuBe = new YoutuBe();
+        youtuBe.setViedoCode(videoCode);
         while (isSuccess) {
             String resultAPI = getYoutubeResult(apiUrl);
             if (resultAPI != null) {
@@ -39,8 +40,6 @@ public class YoutubeAPIServiceImpl implements YoutubeAPIService {
                     JsonNode nodes = mapper.readTree(resultAPI);
                     JsonNode nodeItems = nodes.get("items");
                     for (JsonNode itemNode : nodeItems) {
-                        String code = itemNode.get("id").asText();
-                        youtuBe.setViedoCode(code == null || code.equals("") ? videoCode : code);
                         String title = itemNode.get("snippet").get("title").asText();
                         youtuBe.setVideoTitle(title);
                         String description = itemNode.get("snippet").get("description").asText();
@@ -62,13 +61,13 @@ public class YoutubeAPIServiceImpl implements YoutubeAPIService {
                         youtuBe.setLicensedContent(licensedContent);
                         String projection = itemNode.get("contentDetails").get("projection").asText();
                         youtuBe.setProjection(projection);
-                        int viewCount = itemNode.get("statistics").get("viewCount").asInt();
+                        int viewCount = itemNode.get("statistics").get("viewCount") != null ? itemNode.get("statistics").get("viewCount").asInt() : 0;
                         youtuBe.setViewCount(viewCount);
-                        int likeCount = itemNode.get("statistics").get("likeCount").asInt();
+                        int likeCount = itemNode.get("statistics").get("likeCount") != null ? itemNode.get("statistics").get("likeCount").asInt() : 0;
                         youtuBe.setLikeCount(likeCount);
-                        int dislikeCount = itemNode.get("statistics").get("dislikeCount").asInt();
+                        int dislikeCount = itemNode.get("statistics").get("dislikeCount") != null ? itemNode.get("statistics").get("dislikeCount").asInt() : 0;
                         youtuBe.setDislikeCount(dislikeCount);
-                        int commentCount = itemNode.get("statistics").get("commentCount").asInt();
+                        int commentCount = itemNode.get("statistics").get("commentCount") != null ? itemNode.get("statistics").get("commentCount").asInt() : 0;
                         youtuBe.setCommentCount(commentCount);
                     }
                     return youtuBe;
@@ -83,7 +82,7 @@ public class YoutubeAPIServiceImpl implements YoutubeAPIService {
             }
             retry++;
         }
-        return null;
+        return youtuBe;
     }
 
     private int calculateVedioTime(String duration) {

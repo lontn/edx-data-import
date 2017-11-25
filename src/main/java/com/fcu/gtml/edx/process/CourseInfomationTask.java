@@ -39,6 +39,7 @@ public class CourseInfomationTask extends AbstractTask {
             try {
                 //針對課程資訊撈出Video Code
                 List<String> listVideoCodes = edxService.listVideoCodes(courseId, eventType);
+                L.info("listVideoCodes:{}", listVideoCodes.size());
                 // 呼叫Youtube API
                 processYoutubeData(listVideoCodes, course);
             } catch (Exception e) {
@@ -51,10 +52,11 @@ public class CourseInfomationTask extends AbstractTask {
 
     private void processYoutubeData(List<String> listVideoCodes, CourseOverview course) {
         for (String code : listVideoCodes) {
+            String courseId = course.getId();
             YoutuBe youbuBe = youtubeAPIService.getYoutubeAPI(code);
             CourseMaterialInfo courseMaterial = new CourseMaterialInfo(course, youbuBe);
             // TODO INSERT ?
-            int count = edxService.countCourseMateria(code);
+            int count = edxService.countCourseMateria(code, courseId);
             try {
                 if (count == 0) {
                     // insert

@@ -53,7 +53,7 @@ SELECT id as courseId, display_name, start, end, org FROM edxapp.course_overview
 </select>
 
 <select id="countCourseMateria" resultType="int" parameterType="map">
-SELECT count(1) FROM EdXInfo.CourseMaterialInfo where VideoCode = #{videoCode}
+SELECT count(1) FROM EdXInfo.CourseMaterialInfo where VideoCode = #{videoCode} and CourseId = #{courseId}
 </select>
 
 <insert id="insertCourseMaterialInfo" parameterType="CourseMaterialInfo" useGeneratedKeys="true" keyProperty="id">

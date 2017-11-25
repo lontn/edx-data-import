@@ -21,7 +21,7 @@ public interface EdXInformationService {
      */
     public List<CourseOverview> listCourseOverview();
 
-    public int countCourseMateria(String videoCode);
+    public int countCourseMateria(String videoCode, String courseId);
 
     public void insertCourseMaterialInfo(CourseMaterialInfo courseMaterialInfo);
 }

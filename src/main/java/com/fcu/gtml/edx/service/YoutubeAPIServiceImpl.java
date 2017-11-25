@@ -72,7 +72,7 @@ public class YoutubeAPIServiceImpl implements YoutubeAPIService {
                     }
                     return youtuBe;
                 } catch (Exception e) {
-                    L.error("videoCode:{}", videoCode);
+                    L.error("getYoutubeAPI videoCode:{}", videoCode);
                     L.error("getYoutubeAPI IOException:{}", e);
                 }
             }

@@ -25,7 +25,7 @@ public interface EdXInformationMapper {
      */
     public List<CourseOverview> listCourseOverview();
 
-    public int countCourseMateria(@Param("videoCode") String videoCode);
+    public int countCourseMateria(@Param("videoCode") String videoCode, @Param("courseId") String courseId);
 
     public void insertCourseMaterialInfo(CourseMaterialInfo courseMaterialInfo);
 }

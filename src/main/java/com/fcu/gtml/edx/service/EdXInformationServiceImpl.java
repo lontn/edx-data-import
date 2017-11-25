@@ -28,8 +28,8 @@ public class EdXInformationServiceImpl implements EdXInformationService {
     }
 
     @Override
-    public int countCourseMateria(String videoCode) {
-        return edxMapper.countCourseMateria(videoCode);
+    public int countCourseMateria(String videoCode, String courseId) {
+        return edxMapper.countCourseMateria(videoCode, courseId);
     }
 
     @Override

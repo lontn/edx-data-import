@@ -21,7 +21,7 @@
     http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.1.xsd
     http://www.springframework.org/schema/data/mongo http://www.springframework.org/schema/data/mongo/spring-mongo-1.8.xsd">
 
-  <context:property-placeholder location="classpath:jdbc.properties"/>
+  <context:property-placeholder location="classpath:jdbc.properties,classpath:mongo.properties"/>
 
 <!--   <mongo:mongo id="mongo" host="${mongo.host}" port="${mongo.port}"/> -->
 <!--   <mongo:db-factory id="mongoDbFactory" dbname="${mongo.dbname}" mongo-ref="mongo"/> -->

@@ -21,10 +21,10 @@ public class EdXAppServiceTest extends SupportSpringTest {
     @Test
     public void test() {
         L.info("mongoOperation:{}", mongoOperation);
-        Criteria syncCriteria = new Criteria();
-        Query query = Query.query(syncCriteria).limit(500);
-        List<String> list = mongoOperation.find(query, String.class);
-        L.info("list:{}", list.get(0));
+//        Criteria syncCriteria = new Criteria();
+//        Query query = Query.query(syncCriteria).limit(500);
+//        List<String> list = mongoOperation.find(query, String.class);
+//        L.info("list:{}", list.get(0));
 //        query.with(new Sort(Sort.Direction.ASC, "_id"));
 //        mongoOperation.getCollection("modulestore");
     }

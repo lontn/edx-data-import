@@ -5,6 +5,7 @@
 <typeAliases>
   <typeAlias alias="CourseOverview" type="com.fcu.gtml.edx.domain.CourseOverview"/>
   <typeAlias alias="CourseMaterialInfo" type="com.fcu.gtml.edx.domain.CourseMaterialInfo"/>
+  <typeAlias alias="CourseMaterialHistory" type="com.fcu.gtml.edx.domain.CourseMaterialHistory"/>
 </typeAliases>
 <typeHandlers>
     <typeHandler handler="com.fcu.gtml.edx.mybatis.type.CharTypeHandler"

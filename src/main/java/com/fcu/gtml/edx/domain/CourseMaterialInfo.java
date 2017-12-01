@@ -5,6 +5,7 @@ import java.util.Date;
 public class CourseMaterialInfo extends Entity {
 
     private static final long serialVersionUID = 1L;
+    private int id;
     private String displayName;
     private String videoCode;
     private String liveBroadcastContent;
@@ -52,6 +53,12 @@ public class CourseMaterialInfo extends Entity {
         this.commentCount = youtuBe.getCommentCount();
     }
 
+    public int getId() {
+        return id;
+    }
+    public void setId(int id) {
+        this.id = id;
+    }
     public String getDisplayName() {
         return displayName;
     }

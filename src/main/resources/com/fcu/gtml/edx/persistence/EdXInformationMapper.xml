@@ -31,11 +31,19 @@
 </resultMap>
 
 <resultMap id="rm_CourseMaterialInfo" type="CourseMaterialInfo">
+  <id     property="id"                                  column="Id"     />
   <result property="displayName"                         column="DisplayName"                   jdbcType="VARCHAR"/>
   <result property="liveBroadcastContent"                column="LiveBroadcastContent"          jdbcType="VARCHAR"/>
   <result property="channelTitle"                        column="ChannelTitle"                  jdbcType="VARCHAR"/>
+  <result property="videoTitle"                          column="VideoTitle"                    jdbcType="VARCHAR"/>
+  <result property="videoDescript"                       column="VideoDescript"                 jdbcType="VARCHAR"/>
+  <result property="videoTime"                           column="VideoTime"                     jdbcType="INTEGER"/>
   <result property="startDate"                           column="StartDate"                     jdbcType="TIMESTAMP"/>
-  <result property="endDate"                             column="EndDate"                     jdbcType="TIMESTAMP"/>
+  <result property="endDate"                             column="EndDate"                       jdbcType="TIMESTAMP"/>
+  <result property="viewCount"                           column="ViewCount"                     jdbcType="INTEGER"/>
+  <result property="likeCount"                           column="LikeCount"                     jdbcType="INTEGER"/>
+  <result property="dislikeCount"                        column="DislikeCount"                  jdbcType="INTEGER"/>
+  <result property="commentCount"                        column="CommentCount"                  jdbcType="INTEGER"/>
 </resultMap>
 
 <select id="listVideoCodes" resultType="string" parameterType="map">
@@ -54,6 +62,11 @@ SELECT id as courseId, display_name, start, end, org FROM edxapp.course_overview
 
 <select id="countCourseMateria" resultType="int" parameterType="map">
 SELECT count(1) FROM EdXInfo.CourseMaterialInfo where VideoCode = #{videoCode} and CourseId = #{courseId}
+</select>
+
+<select id="findCourseMateria" resultMap="rm_CourseMaterialInfo" parameterType="map">
+SELECT Id, DisplayName, ChannelTitle, VideoTime,ViewCount,LikeCount,DislikeCount,CommentCount
+ FROM EdXInfo.CourseMaterialInfo where VideoCode = #{videoCode} and CourseId = #{courseId}
 </select>
 
 <insert id="insertCourseMaterialInfo" parameterType="CourseMaterialInfo" useGeneratedKeys="true" keyProperty="id">
@@ -109,12 +122,33 @@ VALUES
   'Gtml',
   now(),
   'Gtml');
+</insert>
 
+<insert id="insertCourseMaterialHistory" parameterType="CourseMaterialHistory" useGeneratedKeys="true" keyProperty="id">
+INSERT INTO EdXInfo.CourseMaterialHistory
+(
+  CourseMaterialId,
+  UpdateTime,
+  PreViewCount,
+  PreLikeCount,
+  PreDislikeCount,
+  PreCommentCount)
+VALUES
+(
+  #{courseMaterialId},
+  now(),
+  #{preViewCount},
+  #{preLikeCount},
+  #{preDislikeCount},
+  #{preCommentCount}
+ );
 </insert>
 
 <update id="updateCourseMaterialInfo" parameterType="CourseMaterialInfo">
 UPDATE EdXInfo.CourseMaterialInfo
-SET ViewCount = #{viewCount},
+SET 
+    VideoTime = #{videoTime},
+    ViewCount = #{viewCount},
     LikeCount = #{likeCount},
     DislikeCount = #{dislikeCount},
     CommentCount = #{commentCount},

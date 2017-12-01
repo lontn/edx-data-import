@@ -12,6 +12,7 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 
 import com.fcu.gtml.edx.SupportSpringTest;
+import com.fcu.gtml.edx.domain.Modulestore;
 
 public class EdXAppServiceTest extends SupportSpringTest {
     private static final Logger L = LogManager.getLogger();
@@ -21,10 +22,14 @@ public class EdXAppServiceTest extends SupportSpringTest {
     @Test
     public void test() {
         L.info("mongoOperation:{}", mongoOperation);
-//        Criteria syncCriteria = new Criteria();
-//        Query query = Query.query(syncCriteria).limit(500);
-//        List<String> list = mongoOperation.find(query, String.class);
-//        L.info("list:{}", list.get(0));
+        Criteria syncCriteria = new Criteria();
+        syncCriteria.and("_id.org").is("FCUx");
+        syncCriteria.and("_id.course").is("2015004");
+        syncCriteria.and("_id.category").is("video");
+        Query query = Query.query(syncCriteria);
+        List<Modulestore> list = mongoOperation.find(query, Modulestore.class);
+        L.info("list:{}", list.size());
+        L.info("list:{}", list);
 //        query.with(new Sort(Sort.Direction.ASC, "_id"));
 //        mongoOperation.getCollection("modulestore");
     }

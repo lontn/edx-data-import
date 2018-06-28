@@ -706,5 +706,4 @@ public class YoutubeAPITest extends SupportSpringTest {
             }
         }
     }
->>>>>>> 3b93f9e2474bff05789d45bddda53f9a770300f2
 }

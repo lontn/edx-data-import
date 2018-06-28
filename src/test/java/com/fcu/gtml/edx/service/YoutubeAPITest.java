@@ -45,4 +45,25 @@ public class YoutubeAPITest extends SupportSpringTest {
         }
         
     }
+
+    @Test
+    public void ipCityTest() {
+        String apiUrl = "http://ip-api.com/json/223.141.114.203";
+        Client client = ClientBuilder.newClient();
+        try {
+            WebTarget target = client.target(apiUrl);
+            Response response = target.request().get();
+            String result = response.readEntity(String.class).trim();
+            L.info("result:{}", result);
+        } catch (Exception e) {
+            L.error("Exception:{}", e);
+        }
+    }
+
+    @Test
+    public void test() {
+        String str = "19";
+        int aaa = (int) Math.floor(Double.parseDouble(str));
+        L.info("aaa:{}", aaa);
+    }
 }

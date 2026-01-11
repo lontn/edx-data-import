@@ -1,6 +1,6 @@
 package com.fcu.gtml.edx.process;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 
 import org.junit.Test;
 

@@ -3,9 +3,9 @@ package com.fcu.gtml.edx.persistence;
 
 import java.util.List;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 
-import org.apache.commons.lang.Validate;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.Test;

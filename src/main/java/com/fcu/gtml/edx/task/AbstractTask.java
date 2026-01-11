@@ -2,7 +2,7 @@ package com.fcu.gtml.edx.task;
 
 import java.lang.management.ManagementFactory;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 import javax.management.Attribute;
 import javax.management.AttributeList;
 import javax.management.MBeanServer;
